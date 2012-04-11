@@ -2,9 +2,11 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+METEOR_HOME=$BUILD_DIR/.meteor/local
+PATH=$METEOR_HOME/usr/bin:$METEOR_HOME/usr/lib/meteor/bin:$PATH
 
 fetch_meteor() {
-  if [ -f "$BUILD_DIR/usr/bin/meteor" ] ; then
+  if [ -f "$METEOR_HOME/usr/bin/meteor" ] ; then
     # Skip if meteor is already fetched
     return
   fi
@@ -16,16 +18,14 @@ fetch_meteor() {
   curl -o "$CACHE_DIR/$PACKAGE" "http://d3sqy0vbqsdhku.cloudfront.net/${PACKAGE}"
 
   echo "Unpacking meteor"
-  ar p "$CACHE_DIR/$PACKAGE" data.tar.gz | tar -C "$BUILD_DIR" -zxf -
+  [ ! -d "$METEOR_HOME" ] && mkdir -p "$METEOR_HOME"
+  ar p "$CACHE_DIR/$PACKAGE" data.tar.gz | tar -C "$METEOR_HOME" -zxf -
 }
 
 build() {
   ( 
-    cd $BUILD_DIR
-    PATH=usr/bin:usr/lib/meteor/bin:bin:/usr/local/bin:/usr/bin:/bin
     echo "Building meteor bundle"
-    meteor bundle $CACHE_DIR/bundle.tar.gz
-    mkdir -p $BUILD_DIR/.meteor/local/build
+    meteor bundle $CACHE_DIR/bundle.tar.gz mkdir -p $BUILD_DIR/.meteor/local/build
     tar -zxf $CACHE_DIR/bundle.tar.gz --strip-components 1 -C $BUILD_DIR/.meteor/local/build
   )
 }
