@@ -5,8 +5,9 @@ BUILD_DIR=$1
 cat <<-YAML
 ---
 addons:
+  - mongohq:free
 config_vars:
-  PATH: usr/bin:bin:/usr/local/bin:/usr/bin:/bin
+  PATH: usr/bin:usr/lib64/meteor/bin/node:bin:/usr/local/bin:/usr/bin:/bin
 default_process_types:
-  meteor: meteor
+  meteor: NODE_PATH=usr/lib64/meteor/lib/node_modules MONGO_URL=\$MONGOHQ_URL node .meteor/local/build/main.js --keepalive
 YAML
