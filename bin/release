@@ -6,7 +6,7 @@ cat <<-YAML
 ---
 addons:
 config_vars:
-  PATH: \$PATH:$BUILD_DIR/usr/bin
+  PATH: usr/bin:bin:/usr/local/bin:/usr/bin:/bin
 default_process_types:
   meteor: meteor
 YAML
