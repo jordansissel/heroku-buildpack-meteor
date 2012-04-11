@@ -19,4 +19,5 @@ fetch_meteor() {
   ar p "$CACHE_DIR/$PACKAGE" data.tar.gz | tar -C "$BUILD_DIR" -zxf -
 }
 
+mkdir $BUILD_DIR $CACHE_DIR
 fetch_meteor
