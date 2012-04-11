@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+
+cat <<-YAML
+---
+addons:
+config_vars:
+default_process_types:
+  meteor: meteor
+YAML

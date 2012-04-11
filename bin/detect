@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "meteor"
+exit 0

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+cd $BUILD_DIR
+curl install.meteor.com | sh
+
+
+
