@@ -3,8 +3,20 @@
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-cd $BUILD_DIR
-curl install.meteor.com | sh
+fetch_meteor() {
+  if [ -f "$BUILD_DIR/usr/bin/meteor" ] ; then
+    # Skip if meteor is already fetched
+    return
+  fi
 
+  eval $(curl install.meteor.com | grep '^VERSION=')
+  PACKAGE=meteor_${VERSION}-1_amd64.deb
 
+  echo "Fetching meteor deb package"
+  curl -o "$CACHE_DIR/$PACKAGE" "http://d3sqy0vbqsdhku.cloudfront.net/${PACKAGE}"
 
+  echo "Unpacking meteor"
+  ar p "$CACHE_DIR/$PACKAGE" data.tar.gz | tar -C "$BUILD_DIR" -zxf -
+}
+
+fetch_meteor
