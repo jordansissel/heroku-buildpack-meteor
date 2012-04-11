@@ -8,5 +8,5 @@ addons:
   - mongohq:free
 config_vars:
 default_process_types:
-  meteor: PATH=.meteor/local/usr/bin:.meteor/local/usr/lib/meteor/bin/node:bin:/usr/local/bin:/usr/bin:/bin NODE_PATH=.meteor/local/usr/lib/meteor/lib/node_modules MONGO_URL=\$MONGOHQ_URL node .meteor/local/build/main.js --keepalive
+  meteor: PATH=.meteor/local/usr/bin:.meteor/local/usr/lib/meteor/bin:bin:/usr/local/bin:/usr/bin:/bin NODE_PATH=.meteor/local/usr/lib/meteor/lib/node_modules MONGO_URL=\$MONGOHQ_URL node .meteor/local/build/main.js --keepalive
 YAML
