@@ -20,11 +20,14 @@ fetch_meteor() {
 }
 
 build() {
-  PATH=usr/bin:usr/lib/meteor/bin:$PATH
-  echo "Building meteor bundle"
-  meteor bundle $CACHE_DIR/bundle.tar.gz
-  mkdir $BUILD_DIR/.meteor/local/build
-  tar -zxf $CACHE_DIR/bundle.tar.gz --strip-components 1 -C $BUILD_DIR/.meteor/local/build
+  ( 
+    cd $BUILD_DIR
+    PATH=usr/bin:usr/lib/meteor/bin:bin:/usr/local/bin:/usr/bin:/bin
+    echo "Building meteor bundle"
+    meteor bundle $CACHE_DIR/bundle.tar.gz
+    mkdir -p $BUILD_DIR/.meteor/local/build
+    tar -zxf $CACHE_DIR/bundle.tar.gz --strip-components 1 -C $BUILD_DIR/.meteor/local/build
+  )
 }
 
 [ ! -d $BUILD_DIR ] && mkdir $BUILD_DIR
