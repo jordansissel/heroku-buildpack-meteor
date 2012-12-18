@@ -39,7 +39,8 @@ build() {
 fetch_meteor
 build
 
-if [ -x post_compile ] ; then
+if [ -f bin/post_compile ] ; then
     echo "-----> Running post_compile hook"
-    ./post_compile
+    chmod +x bin/post_compile
+    bin/post_compile
 fi
