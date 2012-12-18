@@ -38,3 +38,8 @@ build() {
 
 fetch_meteor
 build
+
+if [ -x post_compile ] ; then
+    echo "-----> Running post_compile hook"
+    ./post_compile
+fi
