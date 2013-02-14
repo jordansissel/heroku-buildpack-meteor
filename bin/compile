@@ -38,3 +38,10 @@ build() {
 
 fetch_meteor
 build
+
+echo "Checking for post_compile script"
+if [ -f $BUILD_DIR/bin/post_compile ] ; then
+    echo "-----> Running post_compile hook"
+    chmod +x $BUILD_DIR/bin/post_compile
+    $BUILD_DIR/bin/post_compile
+fi
