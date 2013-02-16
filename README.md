@@ -35,6 +35,11 @@ Create your heroku app
 % heroku create --stack cedar --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
 ```
 
+Configure your ROOT_URL setting
+```
+% heroku config:add ROOT_URL=<insert_url_created_above_here>
+```
+
 Deploy it
 
 ```
