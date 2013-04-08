@@ -10,6 +10,10 @@ PATH=$METEOR_HOME/usr/bin:$METEOR_HOME/usr/lib/meteor/bin:$PATH
 
 # The default meteor version is this, but you can override it as described
 # above.
+
+echo "Meteor compiling!"
+env | sort
+
 [ -z "$METEOR_VERSION" ] && METEOR_VERSION=0.5.9
 
 fetch_meteor() {
