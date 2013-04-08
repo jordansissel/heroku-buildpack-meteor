@@ -5,14 +5,21 @@ CACHE_DIR=$2
 METEOR_HOME=$BUILD_DIR/.meteor/local
 PATH=$METEOR_HOME/usr/bin:$METEOR_HOME/usr/lib/meteor/bin:$PATH
 
+# Use `heroku config:set METEOR_VERSION=0.5.9` or similar to
+# set a specific version of meteor to use.
+
+# The default meteor version is this, but you can override it as described
+# above.
+[ -z "$METEOR_VERSION" ] && METEOR_VERSION=0.5.9
+
 fetch_meteor() {
   if [ -f "$METEOR_HOME/usr/bin/meteor" ] ; then
     # Skip if meteor is already fetched
     return
   fi
 
-  eval $(curl install.meteor.com | grep '^VERSION=')
-  PACKAGE=meteor_${VERSION}-1_amd64.deb
+
+  PACKAGE=meteor_${METEOR_VERSION}-1_amd64.deb
 
   echo "Fetching meteor deb package"
   curl -o "$CACHE_DIR/$PACKAGE" "http://d3sqy0vbqsdhku.cloudfront.net/${PACKAGE}"
