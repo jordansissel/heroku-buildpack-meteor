@@ -3,7 +3,7 @@
 ## Usage
 
 ```
-% heroku create --stack cedar --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
+% heroku create --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
 ```
 
 ## Example
@@ -11,32 +11,34 @@
 Create a sample app with 'meteor'
 
 ```
-% meteor create --example wordplay
-wordplay: created.
+% meteor create --example todos
+todos: created.
 
 To run your new app:
-   cd wordplay
+   cd todos
    meteor
 ```
 
 Put it in git.
 
 ```
-% cd wordplay
+% cd todos
 % git init
-Initialized empty Git repository in /tmp/a/wordplay/.git/
+Initialized empty Git repository in /tmp/a/todos/.git/
 % git add .
-% git commit -m "Sample wordplay app!"
+% git commit -m "Sample todos app!"
 ```
 
 Create your heroku app
 
 ```
-% heroku create --stack cedar --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
+% heroku create --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
 ```
 
-Configure your ROOT_URL setting
+Configure your plugins & settings
 ```
+% heroku addons:add mongolab:sandbox
+% heroku config:add MONGO_URL=<insert_value_of_MONGOLAB_URI_here>
 % heroku config:add ROOT_URL=<insert_url_created_above_here>
 ```
 
