@@ -1,52 +1,23 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# USAGE: bin/compile <build-dir> <cache-dir> <env-dir>
 
-BUILD_DIR=$1
-CACHE_DIR=$2
-METEOR_HOME=$BUILD_DIR/.meteor/local
-PATH=$METEOR_HOME/usr/bin:$METEOR_HOME/usr/lib/meteor/bin:$PATH
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
 
-# Unfortunately heroku buildpacks don't let you pass parameters
-# to this script, so if you want to change the version of meteor,
-# you'll have to fork and hard-code this.
-METEOR_VERSION=0.5.9
+# Load some convenience functions like status(), echo(), and indent()
+source $bp_dir/bin/common.sh
 
-fetch_meteor() {
-  if [ -f "$METEOR_HOME/usr/bin/meteor" ] ; then
-    # Skip if meteor is already fetched
-    return
-  fi
+# Move the Meteor's app source into a subdirectory
+(
+  head "Moving app source into a subdirectory"
+  cd $1
+  mkdir ../app_src
+  # the shopt makes the * glob catch .files
+  shopt -s dotglob nullglob
+  mv * ../app_src
+  mv ../app_src ./app_src
+)
 
 
-  PACKAGE=meteor_${METEOR_VERSION}-1_amd64.deb
-
-  echo "Fetching meteor deb package"
-  curl -o "$CACHE_DIR/$PACKAGE" "http://d3sqy0vbqsdhku.cloudfront.net/${PACKAGE}"
-
-  echo "Unpacking meteor"
-  [ ! -d "$METEOR_HOME" ] && mkdir -p "$METEOR_HOME"
-  ar p "$CACHE_DIR/$PACKAGE" data.tar.gz | tar -C "$METEOR_HOME" -zxf -
-}
-
-build() {
-  ( 
-    cd $BUILD_DIR
-    echo "Building meteor bundle"
-    meteor bundle $CACHE_DIR/bundle.tar.gz 
-    mkdir -p $BUILD_DIR/.meteor/local/build
-    tar -zxf $CACHE_DIR/bundle.tar.gz --strip-components 1 -C $BUILD_DIR/.meteor/local/build
-    rm $CACHE_DIR/bundle.tar.gz
-  )
-}
-
-[ ! -d $BUILD_DIR ] && mkdir $BUILD_DIR
-[ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
-
-fetch_meteor
-build
-
-echo "Checking for post_compile script"
-if [ -f $BUILD_DIR/bin/post_compile ] ; then
-    echo "-----> Running post_compile hook"
-    chmod +x $BUILD_DIR/bin/post_compile
-    $BUILD_DIR/bin/post_compile
-fi
+# Install node first, as a dependency, then install meteor & build app
+$bp_dir/bin/compile_node "$1" "$2"
+$bp_dir/bin/compile_meteor "$1" "$2"

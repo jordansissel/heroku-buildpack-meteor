@@ -1,4 +1,9 @@
 #!/bin/sh
+# USAGE bin/detect BUILD_DIR
 
-echo "meteor"
-exit 0
+if [ -d $1/.meteor ]; then
+  echo "meteor"
+  exit 0
+else
+  exit 1
+fi
