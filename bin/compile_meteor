@@ -51,11 +51,13 @@ build() {
     head "Building Meteor App Bundle"
     cd $APP_SOURCE
     # can't build with these platforms enabled, it looks like
-    set +e  # these next two are allowed to exit nonzero
-    if grep -Fxq ios .meteor/platforms; then
+    set +e  # these next few are allowed to exit nonzero
+    grep -Fxq ios .meteor/platforms
+    if [ $? -eq 0 ]; then
       meteor remove-platform ios 2>&1 | indent
     fi
-    if grep -Fxq android .meteor/platforms; then
+    grep -Fxq android .meteor/platforms
+    if [ $? -eq 0 ]; then
       meteor remove-platform android 2>&1 | indent
     fi
     set -e  # back to failing if any command fails
