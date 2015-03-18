@@ -34,7 +34,7 @@ export_env_dir $env_dir
 # What's the requested semver range for node?
 #node_engine=$(package_json ".engines.node")
 # Node version is locked for now: newer ones don't work with Meteor.
-node_engine="0.10.35"
+node_engine="0.10.36"
 node_previous=$(file_contents "$cache_dir/node/node-version")
 
 # What's the requested semver range for npm?
