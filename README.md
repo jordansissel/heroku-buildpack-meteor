@@ -38,7 +38,7 @@ Create your heroku app
 Or if your Heroku app already exists
 
 ```
-heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+% heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
 ```
 
 Configure your plugins & settings
