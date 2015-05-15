@@ -35,11 +35,24 @@ Create your heroku app
 % heroku create --buildpack https://github.com/jordansissel/heroku-buildpack-meteor.git
 ```
 
-Configure your plugins & settings
+Or if your Heroku app already exists
+
 ```
-% heroku addons:add mongolab:sandbox
+% heroku buildpacks:set https://github.com/jordansissel/heroku-buildpack-meteor.git
+```
+
+Configure your plugins & settings
+
+```
+% heroku addons:create mongolab:sandbox
 % heroku config:add MONGO_URL=<insert_value_of_MONGOLAB_URI_here>
 % heroku config:add ROOT_URL=<insert_url_created_above_here>
+```
+
+Optional step, if you are using a ```settings.json``` file to configure your Meteor application
+
+```
+% heroku config:add METEOR_SETTINGS="$(cat settings.json)"
 ```
 
 Deploy it
