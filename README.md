@@ -44,7 +44,6 @@ Or if your Heroku app already exists
 Configure your plugins & settings
 
 ```
-% heroku addons:create mongolab:sandbox
 % heroku config:add MONGO_URL=<insert_value_of_MONGOLAB_URI_here>
 % heroku config:add ROOT_URL=<insert_url_created_above_here>
 ```
