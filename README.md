@@ -49,6 +49,11 @@ Configure your plugins & settings
 % heroku config:add ROOT_URL=<insert_url_created_above_here>
 ```
 
+Add [session affinity](https://devcenter.heroku.com/articles/session-affinity) so your app will still work with more than one dyno
+```
+% heroku labs:enable http-session-affinity
+```
+
 Optional step, if you are using a ```settings.json``` file to configure your Meteor application
 
 ```
