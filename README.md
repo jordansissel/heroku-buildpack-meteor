@@ -63,7 +63,7 @@ Optional step, if you are using a ```settings.json``` file to configure your Met
 Deploy it
 
 ```
-% git push heroku
+% git push heroku master
 ```
 
 Enjoy!
