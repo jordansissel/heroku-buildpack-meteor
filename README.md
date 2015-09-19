@@ -45,8 +45,8 @@ Configure your plugins & settings
 
 ```
 % heroku addons:create mongolab:sandbox  # optional: use whatever mongo provider you prefer
-% heroku config:add MONGO_URL=<insert_value_of_MONGOLAB_URI_here>
-% heroku config:add ROOT_URL=<insert_url_created_above_here>
+% heroku config:add MONGO_URL=<insert_value_of_MONGOLAB_URI_here> # hint: run heroku config | grep MONGOLAB_URI
+% heroku config:add ROOT_URL=<insert_url_of_the_app_created_above_here> #example: https://your_app.herokuapp.com/
 ```
 
 Add [session affinity](https://devcenter.heroku.com/articles/session-affinity) so your app will still work with more than one dyno
