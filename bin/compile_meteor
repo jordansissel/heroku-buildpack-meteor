@@ -41,6 +41,7 @@ fetch_meteor() {
   head "Unpacking Meteor $METEOR_VERSION"
   tar -xzf "$PACKAGE" -C "$BUILD_DIR"
   mv "$BUILD_DIR/.meteor" "$METEOR_HOME"
+  ln -s "${METEOR_HOME}" "${HOME}/.meteor"
   # bomb out if it didn't work, eg no net
   [ ! -x "${METEOR_HOME}/meteor" ] && error "Install failed: No meteor bin found."
   info "Meteor $METEOR_VERSION is installed"
